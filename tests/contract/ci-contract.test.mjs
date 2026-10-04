@@ -1,0 +1,4 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+test('CI verifies Broker with fake/local evidence and never runs live smoke',async()=>{const text=await readFile(new URL('../../.github/workflows/ci.yml',import.meta.url),'utf8');for(const required of ['npm ci','npm test','node scripts/generate-compat-manifests.mjs --check','node scripts/healthcheck-stdio.mjs','node scripts/check-skill-package.mjs'])assert.ok(text.includes(required),`missing CI command: ${required}`);assert.equal(text.includes('SUBAGENT_BROKER_LIVE=1'),false);assert.equal(text.includes('smoke_real_codex.mjs'),false);assert.equal(text.includes('deploy'),false);assert.equal(text.includes('LIVE_VERIFIED'),false);assert.match(text,/permissions:\n\s+contents: read/);});
