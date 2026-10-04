@@ -40,7 +40,8 @@ export class CodexCliBackend{
   async followup(handle,message){const caps=await this.probe();if(!caps.resume||!handle?.session_id)throw brokerError('CAPABILITY_UNAVAILABLE','codex resume is unavailable');return this.#launch({agent_id:handle.agent_id,prompt:message,cwd:handle.cwd,workspace_mode:handle.workspace_mode,resumeSession:handle.session_id});}
   async cancel(handle,{graceSeconds=10}={}){
     if(!handle?.pid)throw brokerError('CAPABILITY_UNAVAILABLE','child pid is unavailable');
-    const current=await this.processProbe(handle.pid);if(handle.process_identity&&!isSameProcessIdentity(handle.process_identity,current))throw brokerError('PROCESS_IDENTITY_MISMATCH','recorded child process identity no longer matches live pid');
+    if(!handle.process_identity)throw brokerError('PROCESS_IDENTITY_MISMATCH','recorded child process identity is unavailable');
+    const current=await this.processProbe(handle.pid);if(!isSameProcessIdentity(handle.process_identity,current))throw brokerError('PROCESS_IDENTITY_MISMATCH','recorded child process identity no longer matches live pid');
     terminateProcessGroup(handle.pid,'SIGTERM');const deadline=Date.now()+Math.max(0,graceSeconds)*1000;
     while(Date.now()<deadline){const now=await this.processProbe(handle.pid);if(!now||!isSameProcessIdentity(handle.process_identity,now))return;await new Promise(r=>setTimeout(r,50));}
     const again=await this.processProbe(handle.pid);if(handle.process_identity&&isSameProcessIdentity(handle.process_identity,again)){terminateProcessGroup(handle.pid,'SIGKILL');return;}
