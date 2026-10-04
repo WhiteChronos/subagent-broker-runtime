@@ -1,6 +1,9 @@
 name: Dependency Bootstrap
 
 on:
+  push:
+    branches:
+      - feat/broker-independent-runtime
   workflow_dispatch:
 
 permissions:
