@@ -1,0 +1,50 @@
+[
+  {
+    "name": "subagent_spawn",
+    "description": "Spawn one independent Codex child.",
+    "inputSchema": {"type":"object","additionalProperties":false,"properties":{"task":{"type":"string"},"role":{"type":"string","enum":["implementer","reviewer","researcher","tester","security-reviewer"]},"workspace_mode":{"type":"string","enum":["read_only","worktree_write"]},"base_ref":{"type":["string","null"]},"timeout_seconds":{"type":"integer","minimum":1,"maximum":86400},"priority":{"type":"string","enum":["normal","high"]}},"required":["task","role","workspace_mode"]},
+    "annotations": {"readOnlyHint":false,"destructiveHint":false,"idempotentHint":false,"openWorldHint":false}
+  },
+  {
+    "name": "subagent_status",
+    "description": "Read current child lifecycle state.",
+    "inputSchema": {"type":"object","additionalProperties":false,"properties":{"agent_id":{"type":"string"}},"required":["agent_id"]},
+    "annotations": {"readOnlyHint":true,"destructiveHint":false,"idempotentHint":true,"openWorldHint":false}
+  },
+  {
+    "name": "subagent_wait",
+    "description": "Wait until terminal state or timeout.",
+    "inputSchema": {"type":"object","additionalProperties":false,"properties":{"agent_id":{"type":"string"},"timeout_ms":{"type":"integer","minimum":1000,"maximum":600000}},"required":["agent_id","timeout_ms"]},
+    "annotations": {"readOnlyHint":true,"destructiveHint":false,"idempotentHint":true,"openWorldHint":false}
+  },
+  {
+    "name": "subagent_result",
+    "description": "Read terminal result metadata.",
+    "inputSchema": {"type":"object","additionalProperties":false,"properties":{"agent_id":{"type":"string"}},"required":["agent_id"]},
+    "annotations": {"readOnlyHint":true,"destructiveHint":false,"idempotentHint":true,"openWorldHint":false}
+  },
+  {
+    "name": "subagent_followup",
+    "description": "Resume a completed child session.",
+    "inputSchema": {"type":"object","additionalProperties":false,"properties":{"agent_id":{"type":"string"},"message":{"type":"string"}},"required":["agent_id","message"]},
+    "annotations": {"readOnlyHint":false,"destructiveHint":false,"idempotentHint":false,"openWorldHint":false}
+  },
+  {
+    "name": "subagent_list",
+    "description": "List known children.",
+    "inputSchema": {"type":"object","additionalProperties":false,"properties":{"state":{"type":"string"}},"required":[]},
+    "annotations": {"readOnlyHint":true,"destructiveHint":false,"idempotentHint":true,"openWorldHint":false}
+  },
+  {
+    "name": "subagent_cancel",
+    "description": "Cancel a queued or running child.",
+    "inputSchema": {"type":"object","additionalProperties":false,"properties":{"agent_id":{"type":"string"}},"required":["agent_id"]},
+    "annotations": {"readOnlyHint":false,"destructiveHint":true,"idempotentHint":false,"openWorldHint":false}
+  },
+  {
+    "name": "subagent_cleanup",
+    "description": "Safely clean terminal child artifacts/worktree.",
+    "inputSchema": {"type":"object","additionalProperties":false,"properties":{"agent_id":{"type":"string"},"purge_metadata":{"type":"boolean"}},"required":["agent_id"]},
+    "annotations": {"readOnlyHint":false,"destructiveHint":true,"idempotentHint":false,"openWorldHint":false}
+  }
+]

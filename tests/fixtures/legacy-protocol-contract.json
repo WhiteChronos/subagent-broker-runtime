@@ -1,0 +1,12 @@
+{
+  "agent_states": ["QUEUED","SPAWNING","RUNNING","COMPLETED","FAILED","TIMED_OUT","CANCEL_REQUESTED","CANCELLED","ORPHANED"],
+  "terminal_states": ["COMPLETED","FAILED","TIMED_OUT","CANCELLED","ORPHANED"],
+  "roles": ["implementer","reviewer","researcher","tester","security-reviewer"],
+  "workspace_modes": ["read_only","worktree_write"],
+  "priorities": ["normal","high"],
+  "spawn_timeout_default": 1800,
+  "spawn_timeout_min": 1,
+  "spawn_timeout_max": 86400,
+  "wait_timeout_min": 1000,
+  "wait_timeout_max": 600000
+}
