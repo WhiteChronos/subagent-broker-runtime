@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "subagent_broker": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${PLUGIN_ROOT}/src/transports/stdio.mjs"],
+      "cwd": "${PLUGIN_ROOT}",
+      "env_vars": [
+        "SUBAGENT_BROKER_REPO_ROOT",
+        "SUBAGENT_BROKER_CODEX_PATH",
+        "CODEX_HOME",
+        "CODEX_ACCESS_TOKEN"
+      ]
+    }
+  }
+}

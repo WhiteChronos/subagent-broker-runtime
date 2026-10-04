@@ -1,0 +1,6 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
+import { readLinuxProcessIdentity, isSameProcessIdentity, terminateProcessGroup } from '../../src/git-isolation/process-identity.mjs';
+test('Linux process identity uses pid and start ticks', async(t)=>{if(process.platform!=='linux') return t.skip('Linux-only v1 containment');const current=await readLinuxProcessIdentity(process.pid);assert.equal(current.pid,process.pid);assert.match(current.start_ticks,/^\d+$/);assert.equal(isSameProcessIdentity(current,{...current}),true);assert.equal(isSameProcessIdentity(current,{...current,start_ticks:String(Number(current.start_ticks)+1)}),false);assert.equal(await readLinuxProcessIdentity(2147483647),null);});
+test('terminateProcessGroup rejects invalid pid and terminates a detached child group', async(t)=>{assert.throws(()=>terminateProcessGroup(0),/positive integer/);if(process.platform!=='linux') return t.skip('Linux-only v1 containment');const child=spawn(process.execPath,['-e','setInterval(()=>{},1000)'],{detached:true,stdio:'ignore'});assert.ok(child.pid>0);terminateProcessGroup(child.pid,'SIGTERM');await new Promise(resolve=>child.once('exit',resolve));assert.ok(child.exitCode===null||child.exitCode===0||child.signalCode==='SIGTERM');});

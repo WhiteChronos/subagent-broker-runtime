@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "subagent_broker": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "./src/transports/stdio.mjs"
+      ],
+      "cwd": ".",
+      "env_vars": [
+        "SUBAGENT_BROKER_REPO_ROOT",
+        "SUBAGENT_BROKER_CODEX_PATH",
+        "CODEX_HOME",
+        "CODEX_ACCESS_TOKEN"
+      ]
+    }
+  }
+}

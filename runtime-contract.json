@@ -1,0 +1,27 @@
+{
+  "contract_version": "whitechronos-runtime/v1",
+  "component": "broker",
+  "component_version": "1.1.0",
+  "plugin_name": "subagent-broker",
+  "tool_contract": [
+    "subagent_spawn",
+    "subagent_status",
+    "subagent_wait",
+    "subagent_result",
+    "subagent_followup",
+    "subagent_list",
+    "subagent_cancel",
+    "subagent_cleanup"
+  ],
+  "supported_transports": ["stdio"],
+  "required_host_capabilities": [
+    "git",
+    "codex-cli",
+    "linux-process-identity",
+    "explicit-consumer-repo-binding"
+  ],
+  "minimum_codex_version": null,
+  "consumer_compatibility": {
+    "whitechronos-chatgpt": ">=0"
+  }
+}
