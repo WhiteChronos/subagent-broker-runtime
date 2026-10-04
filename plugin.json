@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "subagent-broker",
+  "version": "1.1.0",
+  "description": "Native-first fallback runtime for real independent Codex subagents using isolated processes and Git worktrees.",
+  "author": {"name": "WhiteChronos", "url": "https://github.com/WhiteChronos"},
+  "homepage": "https://github.com/WhiteChronos/subagent-broker-runtime",
+  "repository": "https://github.com/WhiteChronos/subagent-broker-runtime",
+  "license": "MIT",
+  "keywords": ["codex", "subagent", "multi-agent", "mcp", "superpowers", "worktree"]
+}
